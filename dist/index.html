@@ -4,29 +4,42 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070b10">
-  <meta name="description" content="Travel from Earth to a satellite view of a location.">
+  <meta name="description" content="Travel from Earth to a satellite view and save the sequence as a video.">
   <title>Earth</title>
   <link rel="stylesheet" href="./vendor/maplibre-gl.css">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <main id="app">
-    <div id="map" aria-label="Satellite map" aria-hidden="true"></div>
-    <canvas id="globe" aria-label="NASA Blue Marble globe"></canvas>
-    <canvas id="hud" aria-hidden="true"></canvas>
-    <div id="flash" aria-hidden="true"></div>
-    <div class="controls">
-      <button id="back" type="button" hidden>Back to globe</button>
-      <form id="location-form" novalidate>
-        <label class="visually-hidden" for="location">Location coordinates</label>
-        <input id="location" name="location" placeholder="Latitude, longitude" value="51.5074, -0.1278" autocomplete="off" spellcheck="false" aria-describedby="message">
-        <button id="go" type="submit" disabled>Go</button>
-        <button id="cancel" type="button" hidden>Cancel</button>
-      </form>
-      <p id="message" role="status" aria-live="polite">Loading Earth…</p>
-    </div>
-    <div class="credits"><a href="https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/" target="_blank" rel="noopener">NASA</a><span id="satellite-credit" hidden> · <a href="https://cloudless.eox.at/" target="_blank" rel="noopener">Sentinel-2 cloudless by EOX</a> · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA</a></span></div>
+  <main>
+    <div class="player"><canvas id="output" width="1920" height="1080" role="img" aria-label="Earth sequence, 1920 by 1080"></canvas></div>
+    <form id="location-form" novalidate>
+      <label class="visually-hidden" for="location">Location coordinates</label>
+      <input id="location" name="location" placeholder="Latitude, longitude" value="51.5074, -0.1278" autocomplete="off" spellcheck="false" aria-describedby="message">
+      <button id="go" type="submit" disabled>Go</button>
+      <label class="visually-hidden" for="resolution">Video resolution</label>
+      <select id="resolution" aria-label="Video resolution"><option value="1080">1920 × 1080</option><option value="720">1280 × 720</option></select>
+      <label class="selection-control" title="Size of every selection, as a percentage of the frame's width and height">Selection <input id="selection-ratio" type="number" min="1" max="50" step="0.5" value="5" aria-label="Selection ratio in percent" aria-describedby="message"> %</label>
+      <button id="save" type="button" disabled>Save video</button>
+      <a id="download" class="button" hidden>Download MP4</a>
+      <button id="cancel" type="button" hidden>Cancel</button>
+    </form>
+    <div class="below"><p id="message" role="status" aria-live="polite">Loading Earth…</p><button id="back" type="button" hidden>Back to globe</button></div>
+    <details id="extent" hidden>
+      <summary>View extent</summary>
+      <table aria-label="Final satellite view corners">
+        <thead><tr><th scope="col">Corner</th><th scope="col">Latitude</th><th scope="col">Longitude</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">NW</th><td id="extent-nw-lat"></td><td id="extent-nw-lon"></td></tr>
+          <tr><th scope="row">NE</th><td id="extent-ne-lat"></td><td id="extent-ne-lon"></td></tr>
+          <tr><th scope="row">SE</th><td id="extent-se-lat"></td><td id="extent-se-lon"></td></tr>
+          <tr><th scope="row">SW</th><td id="extent-sw-lat"></td><td id="extent-sw-lon"></td></tr>
+        </tbody>
+      </table>
+      <a id="download-extent">Download JSON</a>
+    </details>
+    <div class="credits"><a href="https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/" target="_blank" rel="noopener">NASA Earth Observatory</a> · <a href="https://cloudless.eox.at/" target="_blank" rel="noopener">Sentinel-2 cloudless by EOX</a> · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></div>
   </main>
+  <div id="map" aria-hidden="true" inert></div>
   <noscript>Enable JavaScript to view the globe.</noscript>
   <script src="./vendor/maplibre-gl.js"></script>
   <script type="module" src="./app.js"></script>

@@ -4,6 +4,8 @@ const files = [
   ['https://unpkg.com/maplibre-gl@5.15.0/dist/maplibre-gl.js', 'dist/vendor/maplibre-gl.js'],
   ['https://unpkg.com/maplibre-gl@5.15.0/dist/maplibre-gl.css', 'dist/vendor/maplibre-gl.css'],
   ['https://unpkg.com/maplibre-gl@5.15.0/LICENSE.txt', 'dist/vendor/MAPLIBRE-LICENSE.txt'],
+  ['https://unpkg.com/mediabunny@1.61.3/dist/bundles/mediabunny.mjs', 'dist/vendor/mediabunny.mjs'],
+  ['https://unpkg.com/mediabunny@1.61.3/LICENSE', 'dist/vendor/MEDIABUNNY-LICENSE.txt'],
 ];
 await Promise.all(files.map(async ([url, destination]) => {
   const response = await fetch(url);

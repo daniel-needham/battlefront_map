@@ -1,1 +1,0 @@
-Develop locally in this checkout. The user has authorized publishing this app through GitHub Pages. The workflow publishes only dist/ when main is pushed. Do not create, update, upload to, or deploy an OpenAI-hosted Site unless the user explicitly requests that hosting separately.

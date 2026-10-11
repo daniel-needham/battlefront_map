@@ -1,5 +1,7 @@
 # Orbital
 
+Development is local only. Do not publish or use Sites hosting unless explicitly requested.
+
 A browser prototype of a destination loading sequence: rotating Earth, target acquisition, orbital descent, and staged 2D satellite zooms. Built with vanilla JavaScript, a small WebGL orthographic globe renderer, and MapLibre GL JS. No Google APIs, API keys, build step, or package installation required.
 
 ## Run
